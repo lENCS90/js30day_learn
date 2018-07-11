@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+    // ## Array Cardio Day 2
+
+    const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kait', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'Super good', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Ramen is my fav food ever', id: 123523 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+
+    // Some and Every Checks
+    // Array.prototype.some() // is at least one person 19 or older?
+    // .some beroperasi pada array untuk mengecek apakah setidaknya ada
+    // 1 value yang bernilai tertentu?
+    // const isAdult = people.some((person)=>{
+    //   const currentYear = (new Date()).getFullYear();
+    //   if (currentYear - person.year >= 19) {
+    //     return true;
+    //   }
+    // });
+    // console.log(isAdult);
+
+    // versi lebih sederhana
+    // const isAdult = people.some(person =>{
+    //   const currentYear = (new Date()).getFullYear();
+    //   return currentYear - person.year >= 19;
+    // });
+    // console.log(isAdult);
+
+    // Lebih sederhana lagi
+    // const isAdult = people.some(person => (new Date()).getFullYear() - person.year >= 19);
+    // console.log(isAdult);
+
+    // Array.prototype.every() // is everyone 19 or older?
+    // .every beroperasi pada array untuk mengecek apakah setiap 
+    // 1 value itu bernilai itu saja?
+    // const allAdults = people.every(person => (new Date()).getFullYear() - person.year >= 19);
+    // console.log(allAdults);
+
+
+    // Array.prototype.find()
+    // Find is like filter, but instead returns just the one you are looking for
+    // find the comment with the ID of 823423
+    // .find seperti filter tapi hanya menunjukkan 1 hasil yang ditentukan
+    // const comment = comments.find(comment => (comment.id === 823423));
+    // console.log(comment.text);
+
+    // Array.prototype.findIndex()
+    // Find the comment with this ID
+    // delete the comment with the ID of 823423
+    // .findIndex berfungsi untuk menemukan indeks berdasarkan id
+    // const index = comments.findIndex(comment => comment.id===823423);
+    // console.log(index);
+    
+    // Array.prototype.splice()
+    // memecah dan mengambil hasil dari suatu array, dengan referensi nilai indeksnya
+    // hingga memindah dan menambah nilai baru pada lokasi indeks tertentu
+    // const index = comments.findIndex(comment => comment.id===823423);
+    // urutan parameter *.splice(index, range dari element, pengganti element tersebut);
+    // console.table(comments.splice(index,1));
+    // pada syntax diatas splice(index, 1) berarti
+    // ambil dari index{yang mempunyai id 823423}, sebanyak 1
+    // outputnya 
+    //indeks      text          id
+    // 0      "Super good"    823423
+    
+    // Array.prototyping.slice()
+    // fungsinya mengiris porsi dari array dan dimasukkan
+    // ke objek array barunya yang dipilih berdasarkan mulai dan akhir
+    // array asalnya tidak akan diubah
+    const index = comments.findIndex(comment => comment.id===823423);
+    // index berisi nilai 1
+    const newComments = [
+      ...comments.slice(0, index),
+      // ambil element indeks ke 0 sampai indeks ke 1(nilai dari index)
+      // dari comments yaitu id 523423 teksnya : Love This!
+      ...comments.slice(index+1)
+      // ambil element indeks sebanyak 2 (index bernilai 1, lalu ditambah dengan 1 )
+      // berarti iris element indeks ke-0 dan ke-1 (jumlahnya 2) terhadap array comments
+    ];
+    // console.table(comments);
+    // array comments
+    
+    // console.table(...comments.slice(0, index));
+    // yang diambil id = 523423, dimana ambil element indeks ke-0
+    // sebanyak 1(berasal dari index yang nilainya 1)
+
+    // console.table(...comments.slice(2));
+    // yang diambil id = 2039842, dimana ambil element indeks ke-2
+
+    console.table(newComments);
+    // isi newComments sama seperti ambil element indeks ke-0
+    // sampai indeks ke-4 SELAIN indeks ke-1 pada objek array comments
+    // notasinya seperti ini (indeks ke-0 diambil sebanyak 1 element ,[sampai]indeks ke-4)
+    
+    // hasil akhirnya yang diambil terhadap array comments adalah
+    // indeks ke-0,ke-2,ke-3,ke-4, sedangkan indeks ke-1 diiris
+    
+    // mengapa array ke-1(urutan ke 2) dari newComments bisa mengambil sampai
+    // indeks ke-4 dari array comments? pada dasarnya comments.slice(2)
+    // berisi nilai dari element ke-2 sampai ke-4 dari array comments
+    // namun bisa naik tingkat menjadi element array di newComments karena ada
+    // operasi spread syntax sehingga kumpulan 1 array yang berisi array yang mempunyai
+    // beberapa element, dapat dijadikan kumpulan 1 array tersebut, seperti illustrasi berikut
+
+    // array_luar {
+    //    element_luar1,
+    //    array_dalam {
+    //          element_dalam2,
+    //          element_dalam3,
+    //          element_dalam4
+    //    }
+    // }
+    
+    // dengan spread syntax menjadi
+    // array_luar {
+    //    element_luar1,
+    //    element_dalam2,
+    //    element_dalam3,
+    //    element_dalam4
+    // }
+
+    // array_dalam yang merupakan kumpulan element, menjadi masing-masing element tersebut
+
+  </script>
+</body>
+</html>

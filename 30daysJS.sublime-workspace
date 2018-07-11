@@ -519,24 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "flexpanel_gallery/index-START.html",
-			"settings":
-			{
-				"buffer_size": 3758,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/abfs87/Workspace/Web/JavaScript30/05 - Flex Panel Gallery/index-START.html",
-			"settings":
-			{
-				"buffer_size": 2625,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -964,11 +946,12 @@
 	},
 	"expanded_folders":
 	[
-		"/home/abfs87/Workspace/Web/JavaScript30/js30day_learn",
-		"/home/abfs87/Workspace/Web/JavaScript30/js30day_learn/flexpanel_gallery"
+		"/home/abfs87/Workspace/Web/JavaScript30/js30day_learn"
 	],
 	"file_history":
 	[
+		"/home/abfs87/Workspace/Web/JavaScript30/js30day_learn/flexpanel_gallery/index-START.html",
+		"/home/abfs87/Workspace/Web/JavaScript30/05 - Flex Panel Gallery/index-START.html",
 		"/home/abfs87/Workspace/Web/JavaScript30/js30day_learn/array_cardioday/script.js",
 		"/home/abfs87/Workspace/Web/gmaps_api/index.php",
 		"/home/abfs87/Workspace/Web/blog_lvfw/app/Http/Controllers/Admin/PostController.php",
@@ -1094,13 +1077,11 @@
 		"/home/abfs87/Workspace/Web/skfun/Sass CSS/SASS LevelUp Tuts/3.Nesting Your Sass/index.html",
 		"/home/abfs87/Workspace/Web/skfun/Sass CSS/SASS LevelUp Tuts/3.Nesting Your Sass/css/style.scss",
 		"/home/abfs87/Workspace/Web/skfun/Sass CSS/SASS LevelUp Tuts/3.Nesting Your Sass/css/style.css",
-		"/home/abfs87/Workspace/Web/skfun/Sass CSS/SASS LevelUp Tuts/2.The Basics of Variables in Sass/index.html",
-		"/home/abfs87/Workspace/Web/skfun/Sass CSS/SASS LevelUp Tuts/2.The Basics of Variables in Sass/css/style.scss",
-		"/home/abfs87/Workspace/Web/skfun/Sass CSS/SASS LevelUp Tuts/2.The Basics of Variables in Sass/css/style.css"
+		"/home/abfs87/Workspace/Web/skfun/Sass CSS/SASS LevelUp Tuts/2.The Basics of Variables in Sass/index.html"
 	],
 	"find":
 	{
-		"height": 29.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -1132,114 +1113,14 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "flexpanel_gallery/index-START.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3758,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"rulers":
-							[
-								-0.1,
-								0.2
-							],
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 749.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "/home/abfs87/Workspace/Web/JavaScript30/05 - Flex Panel Gallery/index-START.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2625,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1088,
-								1088
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": "<",
-									"selector": "text.html"
-								},
-								{
-									"characters": ".#",
-									"selector": "text.html"
-								}
-							],
-							"rulers":
-							[
-								-0.1,
-								0.2
-							],
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 427.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 29.0
+		"height": 35.0
 	},
 	"input":
 	{
@@ -1254,18 +1135,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.5,
 			1.0
 		],
 		"rows":
@@ -1279,6 +1153,10 @@
 	{
 		"height": 0.0
 	},
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -1287,7 +1165,7 @@
 	"project": "30daysJS.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 66.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1572,7 +1450,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 265.0,
 	"status_bar_visible": true,
 	"template_settings":

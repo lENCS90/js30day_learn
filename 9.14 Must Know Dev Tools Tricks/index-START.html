@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+    
+    // Tutorial Deteksi perubahan yang dilakukan oleh JS
+    // 1. Inspect Element
+    // 2. Klik kanan pada elementnya
+    // 3. Pilih "Break on" selanjutnya pilih "attribute modification"
+    //    >> dengan aktifasi "attribute modification" otomatis browser melakukan
+    //    >> debugger terhadap element yang melakukan perubahan atribut
+    //    >> menunjukkan syntax yang berjalan selama proses perubahan
+    //    >> sampai keseluruhan event terpenuhi
+
+    // Regular
+      // console.log('HALLO');
+
+    // Interpolated
+      // tampilan console dengan campuran - interpolasi
+      // console.log('Halo aku adalah %s string','\u{1F4A9}');
+      // penggunaan backtick `
+      // console.log(`Halo aku adalah ${var}`);
+
+    // Styled
+      // console.log('%c Tes Text Gawl dengan css','font-size:50px;background-color:red;text-shadow: 10px 10px 0 blue');
+      // %c =  menginstruksikan parameter ke 2 adalah syntax css
+
+    // warning!
+      // menghasilkan tampilan console dengan keterangan peringatan
+      // console.warn("OH TIDAK ");
+
+    // Error :|
+      // menghasilkan tampilan console dengan keterangan error
+      // console.error("-_-");
+
+    // Info
+      // menghasilkan tampilan console dengan keterangan informasi
+      // console.info('Saya ngantuk tapi males tidur bikin pengen nganu');
+
+    // Testing
+      // tes suatu syntax dengan console menggunakan assert
+      // console.assert(1 === 2,"SALAKH");
+      // const p = document.querySelector('p');
+      // console.assert(p.classList.contains('wew'), 'SALAKH VROH');
+      
+    // clearing
+      // membersihkan layar, 
+      // console.clear();
+      // pada browser muncul keterangan
+      // Console was cleared
+
+    // Viewing DOM Elements
+      // menampilkan isi element html secara struktur coding html
+      // const p = document.querySelector('p');
+      // console.log(p);
+      
+      // sedangkan console.dir(<elementhtml>) outputnya seperti
+      // hirarki memanjang ke bawah
+      // const p = document.querySelector('p');
+      // console.dir(p);
+
+    // Grouping together
+      // mengelompokkan output array dari console berdasarkan acuan tertentu
+      // contoh menggunakan array dogs
+      // deklarasi perulangan array
+      // dogs.forEach(dog => {
+      //   // syntax untuk deklarasi pada console dengan group berdasarkan dog.name
+      //   console.group(`${dog.name}`);
+      //     console.log(`Ini adalah ${dog.name}`);
+      //     console.log(`usianya ${dog.age}`);
+      //     console.log(`usia x 7 = ${dog.age * 7} dog years old`);
+      //   // syntax untuk mengakhiri group berdasarkan dog.name
+      //   console.groupEnd(`${dog.name}`);
+      // });
+
+      // secara default outputnya susunan mengembang (expand), untuk menyeting 
+      // group pengelompokannya menjadi tertutup menggunakan groupCollapsed, contoh
+      // dogs.forEach(dog => {
+      //   // syntax untuk deklarasi pada console dengan group berdasarkan dog.name
+      //   // dengan tampilan struktur tertutup
+      //   console.groupCollapsed(`${dog.name}`);
+      //     console.log(`Ini adalah ${dog.name}`);
+      //     console.log(`usianya ${dog.age}`);
+      //     console.log(`usia x 7 = ${dog.age * 7} dog years old`);
+      //   // syntax untuk mengakhiri group berdasarkan dog.name
+      //   console.groupEnd(`${dog.name}`);
+      // });
+
+    // counting
+        // fungsinya menghitung seberapa banyak suatu output console
+        // itu tampil pada tampilan console
+        // console.count('a');
+        // console.count('b');
+        // console.count('a');
+        // console.count('a');
+        // console.count('a');
+        // console.count('b');
+        // console.count('a');
+        // console.count('b');
+        // console.count('b');
+        // console.count('a');
+        // console.count('b');
+        // console.count('b');
+        // console.count('a');
+        // console.count('a');
+        // console.count('b');
+        // dari console log pertama yaitu a console menyimpan jumlahnya menjadi 1
+        // begitu juga dengan output dari b, output b yang paling awal akan dihitung 1
+        // output akhirnya adalah a = 8 dan b = 7
+
+    // timing
+    // berfungsi untuk penghitungan lama waktu ketika data di ambil
+    // deklarasi keterangan output, yakni "Ambil data"
+    console.time('Ambil data');
+    // setelah itu ambil data (contoh) data user json dari github
+    fetch('https://api.github.com/users/consciousnessdev')
+        // convert data ke json
+         .then(data => data.json())
+        // deklarasi setelah data selesai di ambil
+         .then(data => {
+          // deklarasi waktu ambil sudah selesai dari pengatur waktu
+          // yang berisi keterangan "Ambil data"
+            console.timeEnd('Ambil data');
+          // tampilkan semua isi data
+            console.log(data);
+          }
+        );
+
+  </script>
+</body>
+</html>

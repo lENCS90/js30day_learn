@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>HTML5 Canvas</title>
+  </head>
+
+  <body>
+    <canvas id="draw" width="800" height="800"></canvas>
+    <script>
+      const canvas = document.querySelector('#draw');
+      // seleksi canvas
+
+      const ctx = canvas.getContext('2d');
+      // ambil konteks dari area canvas berupa 2 dimensi
+
+      canvas.width = window.innerWidth;
+      // set lebar ukuran canvas sama dengan lebar dari window
+
+      canvas.height = window.innerHeight;
+      // set tinggi ukuran canvas sama dengan tinggi dari window
+      // outputnya, awal ukuran canvas adalah lebar 800px & tinggi 800px
+      // setelah mendeklarasikan tinggi dan lebarnya canvas, maka ukuran
+      // canvas berubah (berdasarkan masing-masing ukuran layar) 1366px & 653px
+      
+      ctx.strokeStyle = '#BADA55';
+      // set warna
+
+      ctx.lineJoin = 'round';
+      // set gabungan antar garis
+
+      ctx.lineCap = 'round';
+      // set bentuk ujung kuas
+
+      ctx.lineWidth = 100;
+      // set ketebalan dari kuas
+
+      // ctx.globalCompositeOperation = 'multiply';
+      // globalCompositeOperation seperti fitur blendmode pada photoshop
+      // browse : 
+      // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+
+      let isDrawing = false;
+      // variabel check tergambar atau tidak
+      // set tidak untuk mengecek sudah bisa tergambar
+
+      let lastX = 0;
+      let lastY = 0;
+      // untuk nilai ketika kuas terakhir menyapu agar
+      // kembali ke koordinat 0
+      
+      let hue = 0;
+      // set untuk warna random, referensi warna menggunakan
+      // skema hsl(hue, saturation , lightness)
+
+      let direction = true;
+      // set untuk style dari posisi ketebalan kuas maksimal
+      // menuju minimal
+
+      // function draw(e) {
+      //   console.log(e);
+      // }
+      // draw adalah fungsi untuk menggambar
+      // console.log sebagai cek aksi ketika posisi mouse
+      // berada pada koordinat ke berapa
+
+      // canvas.addEventListener('mousemove', draw);
+      // kaitkan draw dengan event mousemove
+      
+      // function draw(e) {
+      //   if(!isDrawing) return;
+      //   // hentikan fungsi ketika berjalan selama tidak ada event mouse down
+      //   console.log(e);
+      // }
+
+      // Set Fungsi Draw aktual
+      function draw(e) {
+        if(!isDrawing) return;
+        console.log(e);
+
+        // set untuk warna kuas
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+
+        // // update lebar kuas mengikuti nilai hue
+        // ctx.lineWidth = hue;
+
+        // ctx untuk mouse mulai
+        ctx.beginPath();
+        // set mulainya mouse diklik
+        ctx.moveTo(lastX,lastY);
+        // set mulai mouse ke tempat kordinat x dan y
+        ctx.lineTo(e.offsetX, e.offsetY);
+        // set garis ke tempat koordinat mouse
+        ctx.stroke();
+        // set tuangan ke kanvas
+
+        // NB: offsetX|offsetY adalah property dari element
+        //     yang dioperasikan pada ctx
+
+        // destructure variable lastX dan lastY
+        [lastX,lastY] = [e.offsetX,e.offsetY];
+
+        // update warna melalui hsl
+        hue++;
+
+        // agar warna kembali ke nilai asal maka set kondisi
+        if(hue >= 360){
+          // ketika nilai hue sama dengan 360
+          hue = 0;
+          // maka set hue menjadi 0
+        }
+        if (ctx.lineWidth > 100 || ctx.lineWidth <= 1) {
+          // percabangan ketika nilai ketebalan kuas lebih dari 100
+          // atau ketebalannya kurang dari 1 maka balik ketebalan
+          // kuasnya
+          direction = !direction;
+        }
+        if (direction) {
+          // ketika direction bernilai true
+          ctx.lineWidth++;  
+          // maka tambahkan nilai ketebalan kuas
+        } else {
+          // ketika bernilai false
+          ctx.lineWidth--;
+          // maka kurangi nilai ketebalan kuas
+        }
+      }
+
+/*       canvas.addEventListener('mousemove', draw);
+      // set fungsi draw pada event mouse move yaitu mouse bergerak
+
+      // deklarasikan event mousedown, mouseup dan mouse out
+      canvas.addEventListener('mousedown', () => isDrawing = true);
+      // mousedown ketika mouse di klik dan tahan
+
+      canvas.addEventListener('mouseup', () => isDrawing = false);
+      // mouseup ketika mouse klik dilepas
+
+      canvas.addEventListener('mouseout', () => isDrawing = false);
+      // mouseout ketika mouse keluar dari jendela browser */
+      
+      /* UPDATE */
+      // set event (e) sebagai parameter event mousedown
+      // sebagai referensi ketika event mousedown berjalab
+      canvas.addEventListener('mousedown', (e) => {
+        // set untuk mousedown deklarasi baru, sehingga ketika
+        // mouse mulai meng-klik tidak mulai dari koordinat 0,0
+        // yaitu pojok kiri atas
+        isDrawing = true;
+        [lastX,lastY] = [e.offsetX,e.offsetY];
+        // destruktur agar ketika mousedown berjalan, tidak dimulai
+        // dari koordinat 0,0
+      });
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', () => isDrawing = false);
+      canvas.addEventListener('mouseout', () => isDrawing = false);
+
+      /* KESIMPULAN */
+      // yang dipelajari adalah
+      // 1. Context merupakan konteks untuk kanvas yaitu 2 dimensi
+      // 2. Set Event Mouse ketika klik dan drag hingga lepas
+      // 3. 
+    </script>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+    </style>
+
+  </body>
+</html>

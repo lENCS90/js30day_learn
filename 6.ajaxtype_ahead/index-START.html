@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+// const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+// Deklarasi Array
+// const cities = [];
+
+// Deklarasi fungsinya
+// const prom = fetch(endpoint);
+// console.log(prom);
+// Kode diatas kembaliannya adalah Promise
+
+// fetch(endpoint).then(blob => console.log(blob));
+// Sintaks diatas kembaliannya adalah struktur DOM Javascript
+
+// fetch(endpoint).then(blob => JSON.parse(blob));
+// Sintaks menimbulkan error blob tidak diketahui
+
+// fetch(endpoint).then(blob => blob.json());
+// Sintaks diatas tidak menampilkan pesan apapun
+
+// fetch(endpoint)
+//   .then(blob => blob.json())
+//   .then(data => console.log(data));
+// Sintaks diatas memunculkan array dari endpoint
+
+// fetch(endpoint)
+//   .then(blob => blob.json())
+//   .then(data => cities.push(data));
+// Sintaks diatas tidak menampilkan kembalian apapun
+// namun masuk langsung ke array cities namun bentuknya
+// bersarang ke indeks array 0, hal ini terjadi karena
+// data json sudah berbentuk array sementara setelah itu
+// dimasukkan ke array cities
+
+// fetch(endpoint)
+//   .then(blob => blob.json())
+//   .then(data => cities.push(...data));
+// ... adalah fungsi spread pada javascript ES6
+// sehingga memungkin kan semua isi dari data dapat diambil
+// secara keseluruhan
+// output dari sintaks diatas adalah cities berbentuk
+// array 1 dimensi, sekalipun jsonnya sudah berstruktur array
+
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const cities = [];
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data));
+
+// buat tampilan hasil pencatian
+// deklarasikan variabel input dan rekomendasi
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+// formatter angka populasi dengan koma
+function numberWithCommas(x){
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+// buat fungsi menampilkan hasil yang cocok
+function displayMatches() {
+  // fungsinya displayMatches
+  const matchArray = findMatches(this.value,cities);
+  // ambil nilai kembalian hasil dari fungso findMatches
+  const html = matchArray.map(place=>{
+    // buat tampilan hasil untuk html, kembalikan ke element html
+    // dengan menampilkan kota atau negara bagian, beserta populasinya
+    
+    // return `
+    //   <li>
+    //     <span class="name">${place.city}, ${place.state}</span>
+    //     <span class="population">${place.population}</span>
+    //   </li>
+    // `;
+    
+    // buat highlight hasil suggestion
+    const regex = new RegExp(this.value, 'gi');
+    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    return `
+      <li>
+        <span class="name">${cityName}, ${stateName}</span>
+        <span class="population">${numberWithCommas(place.population)}</span>
+      </li>
+    `;
+    // li > span > tampilkan kota, negara bagian
+    //    > span > tampilkan populasinya
+    // lalu join semua element matchArraynya
+  }).join('');
+  suggestions.innerHTML = html;
+
+  console.log(matchArray);
+}
+
+function findMatches(wordToMatch, cities){
+// fungsi findMatches adalah mencocokan dari kata dari parameter wordToMatch,
+// dengan parameter cities sebagai referensi sumber datanya
+  return cities.filter(place => {
+  // return pada variabel cities dimana mengambil dari nilai kembalian place
+    const regex = new RegExp(wordToMatch, 'gi');
+  // deklarasikan regex untuk variabel mencari pola dari kata yang akan dicari
+    return place.city.match(regex) || place.state.match(regex); 
+  // lalu returnkan ke place yang citynya cocok dengan nilai regex atau
+  // yang statenya cocok dengan nilai regex
+  });
+}
+// tambahkan event terhadap searchInput
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+
+</script>
+  </body>
+</html>
