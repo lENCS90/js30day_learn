@@ -6,7 +6,67 @@
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
-<script>
+<script type="application/javascript">
+  /* Bertujuan untuk mendeteksi setiap inputan key keyboard */
+
+  /* Deklarasi untuk array penyimpan yang diinpun user */
+  const pressed = [];
+  
+  /* Deklarasi contoh kata yang dicari */
+  const secretWord = "senep";
+
+  /* Event untuk setiap inputan yang di ketik pada window */
+  window.addEventListener('keyup', (e) => {
+    // percobaan 1 -> tampilkan key yang ditekan
+    // // ketika ada inputan keyboard pada window
+    // console.log(e.key);
+    // // maka tampilkan key yang di tekan pada terminal
+
+    // // percobaan 2 -> simpan key yang ditekan ke dalam array
+    // // tampilkan yang ditekan
+    // console.log(e.key);
+    // // ketika menekan key sebagai inputan, masuk ke array
+    // pressed.push(e.key);
+    // // tampilkan isi array
+    // console.log(pressed);
+
+    // // percobaan 3 -> batasi isi dari array yang diinputi key
+    // console.log(e.key);
+    // pressed.push(e.key);
+    // // batasi dengan memotong menggunakan method splice
+    // pressed.splice(-secretWord.length - 1, pressed.length - secretWord.length);
+    // // penjelasan : potong dari belakang sepanjang isi dari secretWord (panjangnya 5 huruf)
+    // //              dikurangi dengan 1 selanjutnya ganti dengan sepanjang array yang telah 
+    // //              ditekan keynya misal misal menekan 7 huruf sehingga dikurangi dengan
+    // //              panjang dari secredWord yaitu 5 huruf, akhirnya akan menjadi dibatasi
+    // //              sejumlah huruf dari secretWord yaitu 5
+    // console.log(pressed);
+
+    // // percobaan 4 -> deteksi dari key yang ditekan dengan isi dari array
+    // console.log(e.key);
+    // pressed.push(e.key);
+    // pressed.splice(-secretWord.length - 1, pressed.length - secretWord.length);
+
+    // // deteksi jika arraynya dijoin (menjadi string) dan berisi dengan kata didalam variabel
+    // // secredWord
+    // if (pressed.join('').includes(secretWord)) {
+    //   // maka tampilkan pesan Ting..
+    //   console.log('Ting...');
+    // }
+    // console.log(pressed);
+
+    // percobaan 5 -> menggunakan js cornify untuk menampilkan animasi acak
+    console.log(e.key);
+    pressed.push(e.key);
+    pressed.splice(-secretWord.length - 1, pressed.length - secretWord.length);
+    if (pressed.join('').includes(secretWord)) {
+      console.log('Ting...');
+      // tambahkan event ketika secretWord ditemukan dalam array
+      // maka akan muncul gambar animasi pelangi dan kuda terbang secara acak
+      cornify_add();
+    }
+    console.log(pressed);
+  });
 </script>
 </body>
 </html>
