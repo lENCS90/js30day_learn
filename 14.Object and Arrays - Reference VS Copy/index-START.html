@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+
+    // contoh dengan operasi angka
+    // let age = 100;
+    // let age2 = age;
+    // console.log(age, age2);
+    // age = 200;
+    // console.log(age, age2);
+    // outputnya : 200, 100
+    // variabel age berubah menjadi 200 karena telah dioveride di line 16 sementara
+    // age2 tidak berubah karena assignya sebelum perubahaan age=100 menjadi age=200
+
+    // contoh dengan operasi string
+    // let name = 'ario';
+    // let name2 = name;
+    // console.log(name, name2);
+    // name = 'naghawl';
+    // console.log(name, name2);
+    // outputnya : naghgawl, ario
+    // sama saja terjadi rewrite setelah deklarasi baru dari name
+
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+    const team = players;
+    // console.log(players, team);
+    // outputnya:
+    // sama antara players dan team
+
+    // You might think we can just do something like this:
+    // team[3] = 'lux';
+    // namun ketika reassign pada team index ke-3
+    // hasilnya isi dari players juga berubah, ini disebut copy by reference
+
+
+
+    // however what happens when we update that array?
+
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+
+    // one way
+    const team2 = players.slice();
+    // output: team2 menjadi semua isi dari players,
+    // percobaan berikutnya adalah merubah isi dari team2
+    // tujuannya apakah players juga terpengaruh dengan perubahan pada team2
+    team2[3] = 'lux';
+    // outputnya ["Wes","Sarah","Ryan","Lux"]
+
+    // or create a new array and concat the old one in
+    // cara lainnya untuk mencopy array adalah 
+    // array kosong di concatinate dengan array yang 
+    // akan di copy
+    team3 = [].concat(players);
+
+    // or use the new ES6 Spread
+    team4 = [...players];
+    // cara paling simple adalah dengan ES6 spread operator, dengan menggunakan sebuah array, lalu
+    // diisi dengan ... (titik3) + nama array yang
+    // akan dicopy
+
+    team5 = Array.from(players);
+    // cara selanjutnya bisa menggunakan "Array.from"
+
+    // now when we update it, the original one isn't changed
+
+    // The same thing goes for objects, let's say we have a person object
+
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    // and think we make a copy:
+    const captain = person;
+    captain.age = 87;
+    // ternyata script copy diatas hanya copy by
+    // reference, yang mana object asalnya juga berubah
+    // jika variabel baru yang mencopy by referencenya
+    // merubah isinya sendiri seperti contoh variabel
+    // captain diatas
+
+    // how do we take a copy instead?
+    const cap2 = Object.assign({}, person, { number: 99, age: 12 });
+    // copy ke variabel cap2, susunannya dengan menggunakan Object.assign adalah
+    // Object.assign({ObjectKosongBaru}, ObjectYangDicopy, PropertiBaruJikaAda)
+    // lalu dimasukkan ke variabel cap2
+
+    // We will hopefully soon see the object ...spread
+    const cap3 = { ...person }
+    // hasilnya sama dengan ketika spread array diatas
+
+    // Hal yang harus diketahui adalah copy object 
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+    const wes = {
+      name: 'ario',
+      age: 63,
+      social: {
+        instagram: '@consciousness_dev',
+        github: 'consciousnessdev'
+      }
+    }
+    const dev = Object.assign({}, wes);
+    // console.log('dev.social:', dev.social);
+    // outputnya adalah object wes
+    // namun ketika object dev dirubah level-2
+    // object propertynya yaitu social
+    dev.social.instagram = '@ar_setiawan';
+    // object wesnya juga berubah
+    // console.log('wes.social:', wes.social);
+    // maka diperlukan utility untuk deep copy object
+    // untuk mencopy seluruh isi dari object dan 
+    // ditampung ke variabel baru, contohnya menggunakan lodash
+
+    // namun ada cara yang curang dimana efeknya adalah
+    // mengurangi performance dari pemrosesan, yaitu:
+    // rubah object yang akan dicopy menjadi string
+    // dengan menggunakan JSON.stringify, selanjutnya
+    // dirubah kembali menjadi object dengan JSON.parse
+    // contoh dengan variabel dev2:
+    const dev2 = JSON.parse(JSON.stringify(wes));
+    // urutannya = 
+    // RubahMenjadiObjek(RubahMenjadiString(wes))
+
+    dev2.social.github = 'mahodooo';
+    console.log('dev2.social:', dev2.social);
+    console.log('wes.social:', wes.social);
+
+
+  </script>
+
+</body>
+
+</html>
