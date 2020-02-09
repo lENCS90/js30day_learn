@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Shadow</title>
+</head>
+
+<body>
+
+    <div class="hero">
+        <h1 contenteditable>🔥WOAH!</h1>
+    </div>
+
+    <style>
+        html {
+            color: black;
+            font-family: sans-serif;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+
+        h1 {
+            text-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
+            font-size: 100px;
+        }
+    </style>
+
+    <script>
+        const hero = document.querySelector('.hero');
+        const text = document.querySelector('h1');
+        let walk = 100;//100px
+        // walk dimaksudkan agar shadownya hanya bisa memelar sejauh
+        // radius 100px(50px sampai -50px) dari posisi koordinat awalnya
+
+
+        function shadow(e) {
+            // ambil dimensi lebar dari class .hero
+            // const width = hero.offsetWidth;
+
+            // ambil dimensi tinggi dari class .hero
+            // const height = hero.offsetHeight;
+
+            // sedangkan yang dibutuhkan adalah posisi cursor terhadap 
+            // element ber-class .hero
+
+            // deskonstruksi ambil offset Width dan Heightnya dari element hero
+            const { offsetWidth: width, offsetHeight: height } = hero;
+
+            // deklarasikan variable offsetX dari posisi x dan offsetY 
+            // dari posisi y eventnya(cursor terhadap .hero)
+            let { offsetX: x, offsetY: y } = e;
+            // tes output nilai x & y
+            // console.log(x, y);
+
+            // buat kondisi jika posisi cursor berdasarkan e(yaitu h1) dan
+            // berada didalam this(yaitu class hero) maka set x berdasarkan
+            // pergerakan dari kiri ke kanan, sedangkan set y berdasarkan tinggi
+            // yaitu memanjang berdasarkan class hero,dari atas sampai bawah elementnya
+            if (this === e.target) {
+                x += e.target.offsetLeft;
+                y += e.target.offsetTop;
+            }
+
+            // deklarasi xWalk, sejauh mana coordinate x(kanan-kiri)
+            // ditentukan animasinya          
+            const xWalk = Math.round((x / width * walk) - (walk / 2));
+            // xWalk = posisi x dibagi lebarnya lalu dikali dengan radiusnya
+            // kanan-kiri, selanjutnya dikurangi dengan 50px, hasilnya dibulatkan
+
+            // sedangkan yWalk, sejauh mana coordinate x(atas-bawah)
+            const yWalk = Math.round((y / height * walk) - (walk / 2));
+            // yWalk = posisi x dibagi tingginya lalu dikali dengan radiusnya
+            // atas-bawah, selanjutnya dikurangi dengan 50px, hasilnya dibulatkan
+            // keduanya terhadap radius 100px(50px sampai -50px)
+            // console.log(xWalk, yWalk);
+
+            // set styling
+            text.style.textShadow = `
+                ${xWalk}px ${yWalk}px 0 rgba(255,0,255,0.7),
+                ${xWalk * -1}px ${yWalk}px 0 rgba(0,255,255,0.7),
+                ${yWalk}px ${xWalk * -1}px 0 rgba(0,255,0,0.7),
+                ${yWalk * -1}px ${xWalk}px 0 rgba(0,0,255,0.7)
+            `;
+
+        }
+
+        // deklarasi function pada class hero yang ditautkan pada pergerakan mouse
+        // 'mousemove', sehingga ketika terjadi perpindahan posisi cursor,
+        // akan mentrigger function shadow
+
+        hero.addEventListener('mousemove', shadow);
+    </script>
+</body>
+
+</html>
