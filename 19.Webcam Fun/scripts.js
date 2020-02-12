@@ -94,6 +94,20 @@ function paintToCanvas() {
 
   return setInterval(() => {
     ctx.drawImage(video, 0, 0, width, height);
+    // ambil nilai pixel keselurhan di layar
+    let pixels = ctx.getImageData(0, 0, width, height);
+
+    // implement red effect ke setiap pixel
+    // pixels = redEffect(pixels);
+
+    // implement rgbSplit effect ke setiap pixel
+    // pixels = rgbSplit(pixels);
+
+    // implement greenscreen effect ke setiap pixel
+    pixels = greenScreen(pixels);
+
+    // lalu tempelkan lagi ke contextnya
+    ctx.putImageData(pixels, 0, 0);
   }, 16);
 }
 
@@ -109,6 +123,57 @@ function takePhoto() {
   link.innerHTML = `<img src=${data} alt="Handsome Man" />`;
 
   strip.insertBefore(link, strip.firstChild);
+}
+
+// deklarasi fungsi redEffect
+function redEffect(pixels) {
+  for (let i = 0; i < pixels.data.length; i += 4) {
+    pixels.data[i + 0] = pixels.data[i + 0] + 100; // red
+    pixels.data[i + 1] = pixels.data[i + 1] - 50; // green
+    pixels.data[i + 2] = pixels.data[i + 2] * 0.5; // blue
+  }
+  return pixels;
+}
+// efek RGBSplit
+function rgbSplit(pixels) {
+  for (let i = 0; i < pixels.data.length; i += 4) {
+    pixels.data[i - 150] = pixels.data[i + 0]; // red
+    pixels.data[i + 100] = pixels.data[i + 1] // green
+    pixels.data[i - 150] = pixels.data[i + 2]; // blue
+  }
+  return pixels;
+}
+
+// function dibawah ini wes bos copas
+function greenScreen(pixels) {
+  const levels = {};
+  // seleksi rgb input untuk masing2 namenya
+  document.querySelectorAll('.rgb input').forEach(input => {
+    levels[input.name] = input.value;
+  });
+
+  // lakukan perulangan untuk masing2 pixelsnya
+
+  for (let i = 0; i < pixels.data.length; i += 4) {
+    red = pixels.data[i + 0];
+    green = pixels.data[i + 1];
+    blue = pixels.data[i + 2];
+    alpha = pixels.data[i + 3];
+
+    // set kondisi sesuai range inputan rgbnya
+    if (red >= levels.rmin
+      && green >= levels.gmin
+      && blue >= levels.bmin
+      && red <= levels.rmax
+      && green <= levels.gmax
+      && blue <= levels.bmax
+    ) {
+      // set pixelnya untuk data alfa / transparannya
+      pixels.data[i + 3] = 0;
+    }
+  }
+  // kembalikan nilai olahan ke pixels
+  return pixels;
 }
 
 getVideo();
