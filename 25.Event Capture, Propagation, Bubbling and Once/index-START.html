@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    div {
+      width: 100%;
+      padding: 100px;
+    }
+
+    .one {
+      background: thistle;
+    }
+
+    .two {
+      background: mistyrose;
+    }
+
+    .three {
+      background: coral;
+    }
+  </style>
+
+  <button>Once</button>
+  <script>
+    // pilih semua div
+    const divs = document.querySelectorAll('div');
+
+    // buat fungsi untuk menangkap event
+    // function logText(e) {
+    //   // tampilkan isi classnya
+    //   console.log(this.classList.value);
+    // }
+
+    // lalu set fungsinya ke dalam event listener element div
+    // divs.forEach(div => div.addEventListener('click', logText));
+
+    // outpunya adalah susunan urutan element yang di klik, dan urutannya dari
+    // susunan paling dalam ke arah susunan terluar
+
+    // misal element 2 yang di klik maka muncul susunan classnya yaitu two, one
+    // misal element 3 yang di klik maka muncul susunan classnya yaitu three, two, one
+
+    /**
+      * ! konsep ini disebut "Bubbling"
+      * * dimana, ketika suatu element diklik maka akan terjadi riak(seperti pada air)
+      * * terhadap element pembungkusnya hingga element pembungkus terluarnya (aksi down-top)
+      * * contohnya seperti di bawah ini, ketika tag body diberi class bod maka ia akan terkena
+      * * riak dari element child yang di klik
+      */
+
+    // document.body.addEventListener('click', logText);
+    // ketika element ke 3 diklik outputnya three, two, one, bod => bod adalah nama class body
+
+    /**
+      * ? Bagaimana browser melakukannya?
+      * ! berikut penjelasannya
+      * * 1. Pertama kali browser melakukan "capture", atau menangkap interaksi user terhadap browser.
+      * *    Dimana yang terjadi adalah, ketika mengklik element, maka browser akan melakukan capture
+      * *    ke arah dalam element (aksi top-down) setiap element yang terkena riak eventnya
+      * * 2. Lalu ketika event telah sampai di element terdalam, maka terjadi riak keluar yang disebut
+      * *    dengan "Bubbling" tadi
+      */
+    // Percobaan dengan option capture, dimana dengan capture diset true ini
+    // maka listener dari event capture akan menangkap sebelum ke event target DOM,
+    // defaultnya adalah false, sehingga langsung diterima oleh event target DOM
+    // divs.forEach(div => div.addEventListener('click', logText, {
+    //   capture: false
+    // }));
+
+    // Propagation
+    /**
+      * * Propagation adalah sebuah proses perambatan yang terjadi ketika riak terjadi
+      * * untuk menghentikan pemicu perambatan ke luar (down-top) element, maka set event
+      * * dengan method 'stopPropagation', contoh di bawah ini
+      */
+    // function logText(e) {
+    //   // set event dengan stop propagation
+    //   e.stopPropagation(); // hentikan bubbling!
+    //   console.log(this.classList.value);
+    // }
+
+    // divs.forEach(div => div.addEventListener('click', logText, {
+    //   capture: false
+    // }));
+
+    // outputnya adalah class yang ditangkap hanya yang di klik saja, perambatan atau propagation
+    // berhenti ketika event pertama dipicu
+
+    // Percobaan option event once, dimana dengan option ini mirip dengan penggunaan event yang
+    // menjalankan stopPropagation, namun menjalankan hanya sekali event saja bukan per-element
+    // seperti menggunakan stopPropagation
+    // function logText(e) {
+    //   console.log(this.classList.value);
+    // }
+    // divs.forEach(div => div.addEventListener('click', logText, {
+    //   capture: false,
+    //   once: true
+    // }));
+
+    /**
+      * * Dengan menggunakan option event once maka kita dapat mengeset agar button hanya bisa
+      * * diklik satu kali saja, berikut contohnya, pertama set button di dalam tag body,
+      * * lalu buat event nya, contoh seperti dibawah ini
+      */
+
+    const button = document.querySelector('button');
+    button.addEventListener('click', () => {
+      // ini fungsinya
+      console.log('click');
+    }, { once: true });
+
+    // Maka console.log hanya menampilkan 1x event click, contoh realnya pada checkout pembayaran
+    // agar hanya bisa di klik 1x, lalu di un-bind
+
+  </script>
+</body>
+
+</html>
