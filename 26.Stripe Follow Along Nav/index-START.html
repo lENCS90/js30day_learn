@@ -252,11 +252,59 @@
       // tambahkan class pada element list item
       this.classList.add("trigger-enter");
 
+      // setTimeout untuk efek dengan class trigger-enter-active selama
+      // 150 ms
+      // setTimeout(() => {
+      //   // karena issue animasi ketika trigger-enter-active akan ditambah
+      //   // sementara ketika mouseout trigger-enter-active dihapus dari element lain
+      //   // maka set kondisi, jika classlist element list item berisi class
+      //   // trigger enter maka lakukan penambahan trigger-trigger-enter-active
+      //   if (this.classList.contains('trigger-enter')) {
+      //     this.classList.add('trigger-enter-active');
+      //   }
+      // },
+      //   150
+      // );
+
+      /** 
+        * ! short code
+        */
+      setTimeout(() =>
+        this.classList.contains('trigger-enter') &&
+        this.classList.add('trigger-enter-active'),
+        150
+      );
+
+      // set background add open class
+      background.classList.add('open');
+
+      // deklarasikan class dropdown
+      const dropdown = this.querySelector('.dropdown');
+      // lalu deteksi koordinatnya
+      const dropdownCoords = dropdown.getBoundingClientRect();
+      // deteksi koordinat nav
+      const navCoords = nav.getBoundingClientRect();
+
+      // Buat object untuk handling koordinat masing2 list item nav
+      const coords = {
+        height: dropdownCoords.height,
+        width: dropdownCoords.width,
+        top: dropdownCoords.top - navCoords.top,
+        left: dropdownCoords.left - navCoords.left
+      }
+      // set properti width dan height background dengan posisi koordinat dropdown
+      background.style.setProperty('width', `${coords.width}px`);
+      background.style.setProperty('height', `${coords.height}px`);
+
+      // set properti transform top dan left background dengan posisi koordinat dropdown
+      background.style.setProperty('transform', `translate(${coords.left}px,${coords.top}px)`);
     }
     // fungsi handle leave, yaitu ketika mouse bergerak ke luar list item navigation
     function handleLeave() {
-      console.log("LEAVE");
-
+      // ketika leave maka remove class trigger-enter
+      this.classList.remove("trigger-enter", "trigger-enter-active");
+      // set background remove open class
+      background.classList.remove('open');
     }
 
     // set event listener untuk masing2 list item dengan event mouse enter dan leave
