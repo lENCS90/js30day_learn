@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed Scrubber</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <!-- <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop controls></video> -->
+    <video class="flex" width="765" height="430" src="video.mp4" loop controls></video>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+
+  <script>
+    const speed = document.querySelector('.speed');
+    const bar = speed.querySelector('.speed-bar');
+    const video = document.querySelector('.flex');
+
+    // Function Handle move of mouse
+    function handleMove(e) {
+      // use 'function (e) ...' because want to read from Window position
+      // get coordinates of y axis from position of event pageY subtract with this element
+      // offsetTop position
+      const y = e.pageY - this.offsetTop;
+
+      // get percent position\
+      const percent = y / this.offsetHeight;
+
+      // set minimum percent position
+      const min = 0.4;
+      // set maximum percent position
+      const max = 4;
+
+      // get height
+      const height = Math.round(percent * 100) + '%';
+
+      // set playback num
+      const playbackRate = percent * (max - min) + min;
+
+      // implement to bar element
+      bar.style.height = height;
+
+      // set number to bar
+      bar.textContent = playbackRate.toFixed(2) + 'x';
+
+      // set Video playbackRate
+      video.playbackRate = playbackRate;
+    }
+
+    // set event listener on speed element, triggered by mouse move
+    speed.addEventListener('mousemove', handleMove);
+  </script>
+</body>
+
+</html>
