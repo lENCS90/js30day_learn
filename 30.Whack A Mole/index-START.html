@@ -44,9 +44,15 @@
 
   /* Get last hole index*/
   let lastHole;
-  
+
+  /* set time up of random moles game */
+  let timeUp = false;
+
+  /* set initial score */
+  let score = 0;
+
   /* Set Random time of mole pop-up*/
-  function randTime (min, max) {
+  function randomTime (min, max) {
     return Math.round(Math.random() * (max - min) + min);
   }
 
@@ -71,6 +77,54 @@
     /* Referrencing of DOM nodes */
     return hole;
   }
+
+  /* Function Moles popping-up*/
+  function peep() {
+    // set random time
+    const time = randomTime(200, 1000);
+    // set random pop moles up hole
+    const hole = randomHole(holes);
+    // give class to hole for set moles up
+    hole.classList.add('up');
+    // set timeout for moles hiding down
+    setTimeout(()=>{
+      // delete class for moles hiding
+      hole.classList.remove('up');
+      // set detect time up
+      if(!timeUp) peep();
+      // then set random time timeout
+    },time);
+  }
+
+  // Function of start game
+  function startGame(){
+    // set scoreboard to 0
+    scoreBoard.textContent = 0;
+    // set default timeup game to false
+    timeUp = false;
+    // set score of start game
+    score = 0;
+    // run peep()
+    peep();
+    // set time out of game time
+    setTimeout(() => {
+      timeUp = true;
+    },10000);
+  }
+
+  // Function of bonk moles
+  function bonk(e){
+    // detect real click bonk of moles
+    if(!e.isTrusted) return; // cheater automation
+    // if bonking a moles add scores then remove up class of moles then it hiding
+    score++;
+    this.classList.remove('up');
+    // set scoreboard points
+    scoreBoard.textContent = score;
+  }
+
+  // function get bonk holes of moles
+  moles.forEach(mole => mole.addEventListener('click',bonk));
 </script>
 </body>
 </html>
